@@ -69,6 +69,9 @@ let observer = {
         if (!binding || !("editor" in binding) || !binding.editor)
             return;
 
+        binding._inputHistory = [];
+        binding._inputHistoryIndex = 0;
+
         binding.editor.addEventListener("keypress", this.onKeyPress, true);
     },
     removeArrowListener: function(browser)
@@ -79,15 +82,55 @@ let observer = {
             return;
 
         binding.editor.removeEventListener("keypress", this.onKeyPress, true);
+
+        delete binding._inputHistoryIndex;
+        delete binding._inputHistory;
     },
     onKeyPress: function(event)
     {
-        if (!event.ctrlKey || ((event.keyCode != event.DOM_VK_UP) && (event.keyCode != event.DOM_VK_DOWN)) || event.altKey || event.metaKey || event.shiftKey)
+        var editor = event.target;
+        var binding = editor.ownerDocument.getBindingParent(editor);
+
+        switch (event.keyCode)
+        {
+        case event.DOM_VK_RETURN:
+        case event.DOM_VK_ENTER:
+            if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && editor.value.length != 0 && editor.value != binding._inputHistory[binding._inputHistory.length - 1])
+            {
+                binding._inputHistory.push(editor.value);
+
+                binding._inputHistoryIndex = binding._inputHistory.length;
+            }
+
             return;
+        case event.DOM_VK_UP:
+        case event.DOM_VK_DOWN:
+            if (event.ctrlKey && !event.altKey && !event.metaKey && !event.shiftKey && binding._inputHistory.length != 0)
+                break;
 
-        event.preventDefault();
+        default:
+            return;
+        }
 
-        Services.console.logStringMessage(event);
+        switch (event.keyCode)
+        {
+        case event.DOM_VK_UP:
+            if (binding._inputHistoryIndex == 0)
+                return;
+
+            --binding._inputHistoryIndex;
+
+            break;
+        case event.DOM_VK_DOWN:
+            if (binding._inputHistoryIndex == binding._inputHistory.length)
+                return;
+
+            ++binding._inputHistoryIndex;
+        }
+
+        editor.value = binding._inputHistoryIndex != binding._inputHistory.length ? binding._inputHistory[binding._inputHistoryIndex] : "";
+
+        editor.setSelectionRange(editor.value.length, editor.value.length);
     },
 };
 
