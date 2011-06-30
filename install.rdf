@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+    <Description about="urn:mozilla:install-manifest">
+        <em:id>inputhistory@douglasthrift.net</em:id>
+        <em:version>1.0</em:version>
+        <em:type>2</em:type>
+        <!-- Instantbird -->
+        <em:targetApplication>
+            <Description>
+                <em:id>{33cb9019-c295-46dd-be21-8c4936574bee}</em:id>
+                <em:minVersion>0.3b1</em:minVersion>
+                <em:maxVersion>1.0.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+        <em:name>Input History</em:name>
+        <em:bootstrap>true</em:bootstrap>
+        <em:description>Input history for conversation windows using CTRL-up and CTRL-down.</em:description>
+        <em:creator>Douglas Thrift</em:creator>
+        <em:homepageURL>http://code.douglasthrift.net/trac/instantbird#InputHistory</em:homepageURL>
+    </Description>
+</RDF>
+<!-- vim: set expandtab: -->
