@@ -105,7 +105,7 @@ let observer = {
             return;
         case event.DOM_VK_UP:
         case event.DOM_VK_DOWN:
-            if (event.ctrlKey && !event.altKey && !event.metaKey && !event.shiftKey && binding._inputHistory.length != 0)
+            if (!event.ctrlKey && !event.altKey && !event.metaKey && !event.shiftKey && binding._inputHistory.length != 0)
                 break;
 
         default:
