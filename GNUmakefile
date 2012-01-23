@@ -8,11 +8,13 @@ ifeq ($(OS),Windows_NT)
 SED := C:\cygwin\bin\sed.exe
 ZIP := C:\cygwin\bin\zip.exe
 PROFILE := $(subst /,\,$(firstword $(wildcard $(APPDATA)/Instantbird/Profiles/*.default)))
+MKDIR_P := C:\cygwin\bin\mkdir.exe -p
 RM_F := del /F /A
 else
 SED := sed
 ZIP := zip
 PROFILE := $(firstword $(wildcard ~/.instantbird/*.default))
+MKDIR_P := mkdir -p
 RM_F := rm -f
 endif
 
@@ -36,6 +38,7 @@ $(xpi): $(files)
 	$(ZIP) -ll $(xpi) $(files)
 
 install:
+	$(MKDIR_P) $(dir $(shortcut))
 	echo $(cwd)> $(shortcut)
 
 deinstall:
