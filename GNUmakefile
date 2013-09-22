@@ -5,10 +5,10 @@
 # GNUmakefile
 
 ifeq ($(OS),Windows_NT)
-SED := C:\cygwin\bin\sed.exe
-ZIP := C:\cygwin\bin\zip.exe
+SED := $(subst /,\,$(lastword $(wildcard C:/cygwin*/bin/sed.exe)))
+ZIP := $(subst /,\,$(lastword $(wildcard C:/cygwin*/bin/zip.exe)))
 PROFILE := $(subst /,\,$(firstword $(wildcard $(APPDATA)/Instantbird/Profiles/*.default)))
-MKDIR_P := C:\cygwin\bin\mkdir.exe -p
+MKDIR_P := $(subst /,\,$(lastword $(wildcard C:/cygwin*/bin/mkdir.exe))) -p
 RM_F := del /F /A
 else
 SED := sed
