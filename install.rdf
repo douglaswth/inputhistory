@@ -9,7 +9,7 @@
             <Description>
                 <em:id>{33cb9019-c295-46dd-be21-8c4936574bee}</em:id>
                 <em:minVersion>0.3b1</em:minVersion>
-                <em:maxVersion>1.5a1pre</em:maxVersion>
+                <em:maxVersion>1.6a1pre</em:maxVersion>
             </Description>
         </em:targetApplication>
         <em:name>Input History</em:name>
